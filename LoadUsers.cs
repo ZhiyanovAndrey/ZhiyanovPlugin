@@ -13,7 +13,6 @@ namespace ZhiyanovPlugin
 {
 
     public class LoadUsers : IPluggable
-
     {
         const string url = "https://dummyjson.com/users";
         public IEnumerable<DataTransferObject> Run(IEnumerable<DataTransferObject> args)
@@ -34,9 +33,13 @@ namespace ZhiyanovPlugin
 
                     var dto = new EmployeesDTO();
 
-                    dto.Name = $"{item.FirstName} {item.LastName}";
+                    if (item.FirstName != null & item.LastName != null) dto.Name = $"{item.FirstName} {item.LastName}";
+                    else if (item.LastName == null) dto.Name = (item.FirstName);
+                    else dto.Name = (item.LastName);
 
-                    dto.AddPhone(item.Phone);
+
+
+                    if (item.Phone != null) dto.AddPhone(item.Phone);
 
 
                     list.Add(dto);
